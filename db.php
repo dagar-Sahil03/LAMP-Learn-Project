@@ -4,9 +4,9 @@
  * DevOps Note: In production, use environment variables
  */
 
-define('DB_HOST', 'localhost');
-define('DB_USER', 'emp_user');
-define('DB_PASS', 'StrongPass@123');
+define('DB_HOST', 'php-crud-app.c726ygwog772.ap-south-1.rds.amazonaws.com');
+define('DB_USER', 'admin');
+define('DB_PASS', 'A>wRq2a96u2Ek&');
 define('DB_NAME', 'employee_db1');
 
 // Create MySQLi connection
