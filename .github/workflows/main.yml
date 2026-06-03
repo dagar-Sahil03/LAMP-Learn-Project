@@ -1,0 +1,41 @@
+name: Deploy PHP Application
+
+# Trigger deployment when code is pushed to the main branch.
+# You can also add workflow_dispatch for manual deployments.
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    # GitHub creates a temporary Ubuntu runner to execute this job.
+    runs-on: ubuntu-latest
+
+    steps:
+      # Connect to the target server using SSH and execute deploy.sh.
+      - name: Deploy Application
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          # Server hostname or IP address.
+          host: ${{ secrets.EC2_HOST }}
+
+          # SSH user with permission to deploy the application.
+          username: ${{ secrets.EC2_USER }}
+
+          # Private SSH key stored securely in GitHub Secrets.
+          key: ${{ secrets.EC2_SSH_KEY }}
+
+          # SSH port (22 by default).
+          port: ${{ secrets.SERVER_PORT || 22 }}
+
+          # Commands executed after successful SSH connection.
+          script: |
+            # Navigate to application directory.
+            cd /var/www/html/employee-app
+
+            # Ensure deployment script is executable.
+            chmod +x deploy.sh
+
+            # Execute deployment process.
+            ./deploy.sh
